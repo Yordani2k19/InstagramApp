@@ -1,0 +1,12 @@
+{
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.hover.enabled": true,
+  "editor.minimap.enabled": true,
+  "editor.parameterHints.enabled": true,
+  "editor.quickSuggestions": true,
+  "editor.quickSuggestionsDelay": 10,
+  "editor.suggest.snippetsPreventQuickSuggestions": true,
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.wordBasedSuggestions": true
+}
