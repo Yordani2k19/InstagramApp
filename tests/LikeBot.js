@@ -9,11 +9,11 @@ import InstagramPhoto from '../page-objects/pages/InstagramPhoto'
 describe('Instagram Bot to like posts', () => {
   it('Login to Instagram', () => {
     App.openHomePage()
-    InstagramLogin.loginToInstagram(process.env.USER_NAME, process.env.PASSWORD)
+    InstagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD)
   })
 
   it('Search Tags', () => {
-    Search.searchFor('photography')
+    Search.searchFor('miamiphotography')
     Search.clickHashtag()
   })
 

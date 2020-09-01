@@ -7,8 +7,17 @@ class Search {
 
   get hashtag() {
     return $(
-      '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > div:nth-child(5) > div.drKGC > div > a:nth-child(1)'
+      '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > div:nth-child(5) > div.drKGC > div > a:nth-child(1) > div > span'
     )
+  }
+
+  /*
+  Test Account selector for hashtag()
+  #react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > div:nth-child(5) > div.drKGC > div > a:nth-child(1)
+  */
+
+  get user() {
+    return $('.Ap253')
   }
 
   searchFor(search) {
@@ -19,6 +28,11 @@ class Search {
   clickHashtag() {
     this.hashtag.waitForExist()
     this.hashtag.click()
+  }
+
+  clickUser() {
+    this.user.waitForExist()
+    this.user.click()
   }
 }
 
