@@ -10,6 +10,10 @@ class Base {
     const interval = Math.floor(Math.random() * 4 + 1)
     browser.pause(interval * 1000)
   }
+
+  back() {
+    browser.back()
+  }
 }
 
 export default new Base()

@@ -1,4 +1,5 @@
 import Base from '../Base'
+
 class InstagramFollower {
   getChild(childPosition) {
     const child = $(
@@ -9,57 +10,85 @@ class InstagramFollower {
       child.waitForExist()
       child.click()
     } catch {
-      console.log('Needs to scroll')
+      // needs to scroll
     }
-  }
-
-  get follower() {
-    return $('.isgrP a')
-  } // this selector is only returning the first value
-
-  get followButton() {
-    return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.BY3EC > div > span > span.vBF20._1OSdk > button'
-    )
   }
 
   get followerPhotos() {
     return $('.v1Nh3 kIKUG  _bz0w')
   }
 
-  get nextButton() {
+  get posts() {
+    return $(
+      '#react-root > section > main > div > div._2z6nI > article > div > div > div:nth-child(1) > div:nth-child(1)'
+    )
+  }
+
+  get likePhotos() {
+    return $('svg[aria-label="Like"]')
+  }
+
+  get unlikedHeart() {
+    return $('svg[aria-label="Unlike"]')
+  }
+
+  get nextPhoto() {
     return $('body > div._2dDPU.CkGkG > div.EfHg9 > div > div > a')
   }
 
-  clickFollower() {
-    this.follower.waitForExist()
-    this.follower.click()
+  get closeWindow() {
+    return $(
+      'body > div._2dDPU.CkGkG > div.Igw0E.IwRSH.eGOV_._4EzTm.BI4qX.qJPeX.fm1AK.TxciK.yiMZG > button > div > svg'
+    )
   }
 
-  followUser() {
-    this.followButton.isExisting()
-      ? this.followButton.click()
-      : /* function required */ null
-  }
-
-  clickFollowerPhotos() {
-    this.followerPhotos.waitForExist()
-    this.followerPhotos.click()
+  clickLike() {
+    this.likePhotos.waitForExist()
+    this.likePhotos.click()
+    this.clickNext()
   }
 
   clickNext() {
-    this.nextButton.waitForExist()
-    this.nextButton.click()
+    this.nextPhoto.waitForExist()
+    this.nextPhoto.click()
+  }
+
+  likeOrNoLike() {
+    this.unlikedHeart.isExisting() ? this.clickNext() : this.clickLike()
+  }
+
+  closePhoto() {
+    this.closeWindow.waitForExist()
+    this.closeWindow.click()
+  }
+
+  clickPhotos() {
+    if (this.posts.isExisting()) {
+      this.posts.waitForExist()
+      this.posts.click()
+      for (let i = 0; i < 3; i++) {
+        Base.interval()
+        this.likeOrNoLike()
+        Base.interval()
+      }
+    } else {
+      Base.back()
+    }
   }
 
   interactionLoop() {
     for (let i = 0; i < 50; i++) {
-      //this.clickFollower()
       this.getChild(i + 1)
       Base.interval()
-      browser.back()
+      this.clickPhotos()
+      Base.interval()
     }
   }
 }
+
+/*
+  once function calls browser.url('https://www.instagram.com/petermckinnon/)
+  make random for likePhotos
+*/
 
 export default new InstagramFollower()
