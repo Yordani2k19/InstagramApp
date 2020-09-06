@@ -1,4 +1,6 @@
 import Base from '../Base'
+import Search from '../Search'
+import InstagramProfile from '../pages/InstagramProfile'
 
 class InstagramFollower {
   getChild(childPosition) {
@@ -24,6 +26,18 @@ class InstagramFollower {
     )
   }
 
+  get followButton() {
+    return $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.BY3EC > div > span > span.vBF20._1OSdk > button'
+    )
+  }
+
+  get userIsBeingFollowed() {
+    return $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div:nth-child(3) > div > span > span.vBF20._1OSdk > button > div > span'
+    )
+  }
+
   get likePhotos() {
     return $('svg[aria-label="Like"]')
   }
@@ -40,6 +54,24 @@ class InstagramFollower {
     return $(
       'body > div._2dDPU.CkGkG > div.Igw0E.IwRSH.eGOV_._4EzTm.BI4qX.qJPeX.fm1AK.TxciK.yiMZG > button > div > svg'
     )
+  }
+
+  clickPhoto() {
+    this.posts.waitForExist()
+    this.posts.click()
+  }
+
+  clickFollow() {
+    this.followButton.waitForExist()
+    this.followButton.click()
+  }
+
+  followUser() {
+    if (this.userIsBeingFollowed.isExisting()) {
+      Base.back()
+    } else {
+      this.clickFollow()
+    }
   }
 
   clickLike() {
@@ -62,15 +94,21 @@ class InstagramFollower {
     this.closeWindow.click()
   }
 
-  clickPhotos() {
+  interactWithPhotos() {
     if (this.posts.isExisting()) {
-      this.posts.waitForExist()
-      this.posts.click()
+      this.followUser()
+      this.clickPhoto()
       for (let i = 0; i < 3; i++) {
-        Base.interval()
-        this.likeOrNoLike()
-        Base.interval()
+        const randomRes = Math.round(Math.random())
+        if (!!randomRes) {
+          Base.interval()
+          this.likeOrNoLike()
+          Base.interval()
+        }
       }
+      this.closePhoto()
+      Search.profileUrl()
+      InstagramProfile.openFollowerList()
     } else {
       Base.back()
     }
@@ -80,15 +118,10 @@ class InstagramFollower {
     for (let i = 0; i < 50; i++) {
       this.getChild(i + 1)
       Base.interval()
-      this.clickPhotos()
+      this.interactWithPhotos()
       Base.interval()
     }
   }
 }
-
-/*
-  once function calls browser.url('https://www.instagram.com/petermckinnon/)
-  make random for likePhotos
-*/
 
 export default new InstagramFollower()

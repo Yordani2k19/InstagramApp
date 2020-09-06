@@ -1,5 +1,3 @@
-import Base from '../Base'
-
 class InstagramProfile {
   get followerList() {
     return $(

@@ -1,4 +1,4 @@
-class Search {
+class SearchBox {
   get searchBox() {
     return $(
       '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > input'
@@ -36,4 +36,4 @@ class Search {
   }
 }
 
-export default new Search()
+export default new SearchBox()

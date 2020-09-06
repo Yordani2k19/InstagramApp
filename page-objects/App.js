@@ -6,6 +6,10 @@ class App {
   openProfilePage() {
     browser.url('https://www.instagram.com/testinggridx_/')
   }
+
+  openPeterMckinnon() {
+    browser.url('https://www.instagram.com/petermckinnon/')
+  }
 }
 
 export default new App()

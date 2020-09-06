@@ -1,5 +1,3 @@
-import App from '../App'
-
 class InstagramLogin {
   get loginForm() {
     return $('#loginForm')
@@ -17,6 +15,12 @@ class InstagramLogin {
     return $('#loginForm > div > div:nth-child(3) > button')
   }
 
+  get searchBox() {
+    return $(
+      '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > input'
+    )
+  }
+
   loginToInstagram(username, password) {
     this.loginForm.waitForExist()
     this.userInput.waitForExist()
@@ -25,6 +29,7 @@ class InstagramLogin {
     this.passwordInput.setValue(password)
     this.loginButton.waitForExist()
     this.loginButton.click()
+    this.searchBox.waitForExist()
   }
 }
 
