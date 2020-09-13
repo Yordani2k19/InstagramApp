@@ -22,7 +22,7 @@ import InstagramFollower from '../page-objects/pages/InstagramFollower'
 describe('Instagram Bot to Like and Follow other Profiles', () => {
   it('Login to Instagram', () => {
     App.openHomePage()
-    InstagramLogin.loginToInstagram('your username', 'your password')
+    InstagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW)
   })
 
   it('Search for a Profile using the URL', () => {

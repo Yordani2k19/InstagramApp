@@ -12,7 +12,8 @@ class InstagramFollower {
       child.waitForExist()
       child.click()
     } catch {
-      // needs to scroll
+      child.scroll(0, 50).end()
+      console.log('SCROLLLLLLLLLLLL')
     }
   }
 
@@ -28,13 +29,13 @@ class InstagramFollower {
 
   get followButton() {
     return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.BY3EC > div > span > span.vBF20._1OSdk > button'
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > div > span > span.vBF20._1OSdk > button'
     )
   }
 
   get userIsBeingFollowed() {
     return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div:nth-child(3) > div > span > span.vBF20._1OSdk > button > div > span'
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
     )
   }
 
@@ -97,6 +98,7 @@ class InstagramFollower {
   interactWithPhotos() {
     if (this.posts.isExisting()) {
       this.followUser()
+      Base.interval()
       this.clickPhoto()
       for (let i = 0; i < 3; i++) {
         const randomRes = Math.round(Math.random())

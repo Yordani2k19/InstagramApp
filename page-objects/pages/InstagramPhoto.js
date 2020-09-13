@@ -42,7 +42,7 @@ class InstagramPhoto {
   }
 
   likePhotos() {
-    for (let i = 0; i < 9879; i++) {
+    for (let i = 0; i < 1479; i++) {
       const randomRes = Math.round(Math.random())
       if (!!randomRes) {
         Base.interval()

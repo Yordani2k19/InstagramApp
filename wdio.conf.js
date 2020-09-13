@@ -16,7 +16,7 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: ['./tests/LikeBot.js'],
+  specs: ['./tests/UserInteraction.js'],
   /*
     !@!@!@!@!@!@#@@!@!@!@!@!@!@@@!@@!@
     Above are the tests you would like to run, only run one at a time to avoid getting detected.

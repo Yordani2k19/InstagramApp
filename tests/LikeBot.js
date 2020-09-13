@@ -16,7 +16,7 @@ import InstagramPhoto from '../page-objects/pages/InstagramPhoto'
 describe('Instagram Bot to like posts', () => {
   it('Login to Instagram', () => {
     App.openHomePage()
-    InstagramLogin.loginToInstagram('your username', 'your password')
+    InstagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD)
   })
 
   it('Search Tags', () => {
