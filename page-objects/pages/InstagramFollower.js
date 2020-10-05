@@ -3,18 +3,26 @@ import Search from '../Search'
 import InstagramProfile from '../pages/InstagramProfile'
 
 class InstagramFollower {
-  getChild(childPosition) {
+  constructor() {
+    this.counter = 1
+  }
+
+  clickFollower(childPosition) {
     const child = $(
       `body > div.RnEpo.Yx5HN > div > div > div.isgrP > ul > div > li:nth-child(${childPosition}) a`
     )
-
     try {
       child.waitForExist()
       child.click()
     } catch {
-      child.scroll(0, 50).end()
-      console.log('SCROLLLLLLLLLLLL')
+      Search.profileUrl(this.counter)
+      this.counter = this.counter + 1
+      this.testLoop()
     }
+  }
+
+  get followerTitle() {
+    return $('body > div.RnEpo.Yx5HN > div > div > div:nth-child(1) > div > h1')
   }
 
   get followerPhotos() {
@@ -57,6 +65,11 @@ class InstagramFollower {
     )
   }
 
+  moveToFollowerTitle() {
+    this.followerTitle.waitForExist()
+    this.followerTitle.moveTo()
+  }
+
   clickPhoto() {
     this.posts.waitForExist()
     this.posts.click()
@@ -67,27 +80,9 @@ class InstagramFollower {
     this.followButton.click()
   }
 
-  followUser() {
-    if (this.userIsBeingFollowed.isExisting()) {
-      Base.back()
-    } else {
-      this.clickFollow()
-    }
-  }
-
   clickLike() {
     this.likePhotos.waitForExist()
     this.likePhotos.click()
-    this.clickNext()
-  }
-
-  clickNext() {
-    this.nextPhoto.waitForExist()
-    this.nextPhoto.click()
-  }
-
-  likeOrNoLike() {
-    this.unlikedHeart.isExisting() ? this.clickNext() : this.clickLike()
   }
 
   closePhoto() {
@@ -95,32 +90,51 @@ class InstagramFollower {
     this.closeWindow.click()
   }
 
-  interactWithPhotos() {
-    if (this.posts.isExisting()) {
-      this.followUser()
-      Base.interval()
-      this.clickPhoto()
-      for (let i = 0; i < 3; i++) {
-        const randomRes = Math.round(Math.random())
-        if (!!randomRes) {
-          Base.interval()
-          this.likeOrNoLike()
-          Base.interval()
-        }
-      }
-      this.closePhoto()
-      Search.profileUrl()
-      InstagramProfile.openFollowerList()
-    } else {
+  interact() {
+    if (this.userIsBeingFollowed.isExisting()) {
       Base.back()
+    } else {
+      if (this.posts.isExisting()) {
+        this.clickFollow()
+        Base.interval()
+        this.clickPhoto()
+        Base.interval()
+        this.clickLike()
+        Base.interval()
+        this.closePhoto()
+        Base.back()
+        Base.interval()
+        Base.back()
+      } else {
+        Base.back()
+      }
+    }
+  }
+
+  testLoop() {
+    for (let i = 0; i < 60; i++) {
+      if (this.followerTitle.isExisting()) {
+        this.moveToFollowerTitle()
+        Base.interval()
+        this.clickFollower(i + 1)
+        Base.interval()
+        this.interact()
+      } else {
+        InstagramProfile.openFollowerList()
+        this.moveToFollowerTitle()
+        Base.interval()
+        this.clickFollower(i + 1)
+        Base.interval()
+        this.interact()
+      }
     }
   }
 
   interactionLoop() {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 30; i++) {
       this.getChild(i + 1)
       Base.interval()
-      this.interactWithPhotos()
+      this.interact()
       Base.interval()
     }
   }

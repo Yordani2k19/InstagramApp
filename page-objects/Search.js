@@ -1,12 +1,19 @@
 class Search {
-  profileUrl() {
-    browser.url('https://www.instagram.com/petermckinnon/')
+  profileUrl(counter) {
+    const PROFILES = [
+      'https://www.instagram.com/thechrishau/',
+      'https://www.instagram.com/petermckinnon/',
+      'https://www.instagram.com/mattih/',
+      'https://www.instagram.com/brandonwoelfel/',
+      'https://www.instagram.com/kai.boet/'
+    ]
+    browser.url(PROFILES[counter])
   }
 
   /* 
-    above is an example of how the url works
-    copy the profile's url that you wish to interact
-    with their follower base and paste inside the ' here '
+    above is an example of how the URls are used.
+    it is better if you place profiles with a high
+    amount of followers for better results.
 */
 
   tagUrl() {

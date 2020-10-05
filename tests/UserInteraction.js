@@ -5,12 +5,6 @@
   the script not running or crashing 
 */
 
-/*
-!@!@!@!@!@!@!
-  This code is still in being worked one
-  it is not fully functional as of now and will crash
-*/
-
 require('dotenv').config()
 
 import App from '../page-objects/App'
@@ -26,11 +20,12 @@ describe('Instagram Bot to Like and Follow other Profiles', () => {
   })
 
   it('Search for a Profile using the URL', () => {
-    Search.profileUrl()
+    Search.profileUrl(0)
     /*
       Inside page-objects, open Search.js
       Inside Search.js you will find directions
-      to correctly place the url for a profile
+      to correctly place the url for profiles and/or
+      tags.
     */
   })
 
@@ -39,7 +34,7 @@ describe('Instagram Bot to Like and Follow other Profiles', () => {
   })
 
   it('Interaction with other Users', () => {
-    InstagramFollower.interactionLoop()
+    InstagramFollower.testLoop()
   })
 })
 

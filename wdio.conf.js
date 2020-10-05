@@ -17,6 +17,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: ['./tests/UserInteraction.js'],
+  // specs: ['./tests/LikeBot.js'],
   /*
     !@!@!@!@!@!@#@@!@!@!@!@!@!@@@!@@!@
     Above are the tests you would like to run, only run one at a time to avoid getting detected.
