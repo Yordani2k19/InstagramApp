@@ -5,7 +5,9 @@ class Search {
       'https://www.instagram.com/petermckinnon/',
       'https://www.instagram.com/mattih/',
       'https://www.instagram.com/brandonwoelfel/',
-      'https://www.instagram.com/kai.boet/'
+      'https://www.instagram.com/kai.boet/',
+      'https://www.instagram.com/charlysavely/',
+      'https://www.instagram.com/joshsavely/'
     ]
     browser.url(PROFILES[counter])
   }

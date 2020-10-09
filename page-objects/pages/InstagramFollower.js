@@ -91,38 +91,29 @@ class InstagramFollower {
   }
 
   interactFunction() {
-    /* 
-      Function is working properly for the first 2 steps
-      continue on as last time we were prevented because
-      the pop-up started to appear.
-
-      Work on saving the cookies to be able to start up
-      already inside the app to avoid detection
-    */
-
-    if (this.userIsBeingFollowed.isExisting()) {
-      Base.back()
-    } else {
-      // user is being followed else
-      if (this.posts.isExisting()) {
+    if (this.posts.isExisting()) {
+      if (this.followButton.isExisting()) {
         this.clickFollow()
-        this.clickPhoto()
-      } else {
-        Base.back()
-      }
-      if (this.likePhotos.isExisting()) {
-        this.clickLike()
-      } else {
-        // like photos else
-      }
-      if (this.closeWindow.isExisting()) {
-        this.closePhoto()
-      } else {
-        // close photo else
-        Base.back()
         Base.interval()
+        this.clickPhoto()
+        if (this.likePhotos.isExisting()) {
+          Base.interval()
+          this.clickLike()
+          Base.interval()
+          if (this.closeWindow.isExisting()) {
+            Base.interval()
+            this.closePhoto()
+          } else {
+            Base.back()
+            Base.interval()
+            Base.back()
+          }
+        }
+      } else {
         Base.back()
       }
+    } else {
+      Base.back()
     }
   }
 
@@ -148,12 +139,13 @@ class InstagramFollower {
   }
 
   testLoop() {
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 50; i++) {
       if (this.followerTitle.isExisting()) {
         this.moveToFollowerTitle()
         Base.interval()
         this.clickFollower(i + 1)
         Base.interval()
+        // Base.back()
         // this.clickFollow()
         this.interactFunction()
         // this.interact()
@@ -163,6 +155,7 @@ class InstagramFollower {
         Base.interval()
         this.clickFollower(i + 1)
         Base.interval()
+        Base.back()
         // this.clickFollow()
         this.interactFunction()
         // this.interact()
