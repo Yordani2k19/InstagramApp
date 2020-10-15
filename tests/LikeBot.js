@@ -20,7 +20,7 @@ describe('Instagram Bot to like posts', () => {
   })
 
   it('Search Tags', () => {
-    Search.tagUrl()
+    Search.tagUrl(0)
     /*
       Inside page-objects, open Search.js
       Inside Search.js you will find directions

@@ -91,29 +91,34 @@ class InstagramFollower {
   }
 
   interactFunction() {
-    if (this.posts.isExisting()) {
-      if (this.followButton.isExisting()) {
-        this.clickFollow()
-        Base.interval()
+    if (this.userIsBeingFollowed.isExisting()) {
+      Base.back()
+    } else {
+      if (this.posts.isExisting()) {
         this.clickPhoto()
+        Base.interval()
         if (this.likePhotos.isExisting()) {
-          Base.interval()
           this.clickLike()
           Base.interval()
-          if (this.closeWindow.isExisting()) {
-            Base.interval()
-            this.closePhoto()
-          } else {
-            Base.back()
-            Base.interval()
-            Base.back()
-          }
+        } else {
+          this.closePhoto()
+          Base.interval()
+        }
+        this.closePhoto()
+        if (this.followButton.isExisting()) {
+          this.clickFollow()
+          Base.interval()
+          Base.back()
+          Base.interval()
+          Base.back()
+        } else {
+          Base.back()
+          Base.interval()
         }
       } else {
         Base.back()
+        Base.interval()
       }
-    } else {
-      Base.back()
     }
   }
 
@@ -147,18 +152,18 @@ class InstagramFollower {
         Base.interval()
         // Base.back()
         // this.clickFollow()
-        this.interactFunction()
-        // this.interact()
+        // this.interactFunction()
+        this.interact()
       } else {
         InstagramProfile.openFollowerList()
         this.moveToFollowerTitle()
         Base.interval()
         this.clickFollower(i + 1)
         Base.interval()
-        Base.back()
+        // Base.back()
         // this.clickFollow()
-        this.interactFunction()
-        // this.interact()
+        // this.interactFunction()
+        this.interact()
       }
     }
   }

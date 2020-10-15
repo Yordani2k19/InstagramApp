@@ -1,6 +1,12 @@
 import Base from '../Base'
+import Search from '../Search'
+import SearchResults from '../pages/SearchResultsPage'
 
 class InstagramPhoto {
+  constructor() {
+    this.counter = 1
+  }
+
   get user() {
     return $('body > div._2dDPU.CkGkG > div.zZYga > div > article')
   }
@@ -41,8 +47,20 @@ class InstagramPhoto {
     this.unlikeHeart.isExisting() ? this.clickNext() : this.clickLike()
   }
 
+  switchTags() {
+    Search.tagUrl(this.counter)
+    this.counter = this.counter + 1
+    Base.interval()
+    SearchResults.clickOnAPhoto()
+    this.likePhotos()
+  }
+
+  getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min
+  }
+
   likePhotos() {
-    for (let i = 0; i < 1479; i++) {
+    for (let i = 0; i < this.getRndInteger(143, 242); i++) {
       const randomRes = Math.round(Math.random())
       if (!!randomRes) {
         Base.interval()
@@ -50,6 +68,7 @@ class InstagramPhoto {
         this.checkForUserExistance()
       }
     }
+    this.switchTags()
   }
 }
 
