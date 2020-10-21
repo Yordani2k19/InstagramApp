@@ -90,38 +90,6 @@ class InstagramFollower {
     this.closeWindow.click()
   }
 
-  interactFunction() {
-    if (this.userIsBeingFollowed.isExisting()) {
-      Base.back()
-    } else {
-      if (this.posts.isExisting()) {
-        this.clickPhoto()
-        Base.interval()
-        if (this.likePhotos.isExisting()) {
-          this.clickLike()
-          Base.interval()
-        } else {
-          this.closePhoto()
-          Base.interval()
-        }
-        this.closePhoto()
-        if (this.followButton.isExisting()) {
-          this.clickFollow()
-          Base.interval()
-          Base.back()
-          Base.interval()
-          Base.back()
-        } else {
-          Base.back()
-          Base.interval()
-        }
-      } else {
-        Base.back()
-        Base.interval()
-      }
-    }
-  }
-
   interact() {
     if (this.userIsBeingFollowed.isExisting()) {
       Base.back()
@@ -143,16 +111,13 @@ class InstagramFollower {
     }
   }
 
-  testLoop() {
+  interactionLoop() {
     for (let i = 0; i < 50; i++) {
       if (this.followerTitle.isExisting()) {
         this.moveToFollowerTitle()
         Base.interval()
         this.clickFollower(i + 1)
         Base.interval()
-        // Base.back()
-        // this.clickFollow()
-        // this.interactFunction()
         this.interact()
       } else {
         InstagramProfile.openFollowerList()
@@ -160,20 +125,8 @@ class InstagramFollower {
         Base.interval()
         this.clickFollower(i + 1)
         Base.interval()
-        // Base.back()
-        // this.clickFollow()
-        // this.interactFunction()
         this.interact()
       }
-    }
-  }
-
-  interactionLoop() {
-    for (let i = 0; i < 30; i++) {
-      this.getChild(i + 1)
-      Base.interval()
-      this.interact()
-      Base.interval()
     }
   }
 }

@@ -1,10 +1,3 @@
-/*
-  Only modify, or play with the code if you
-  have knowledge of what you're changing, a 
-  simple change can cause an error resulting in
-  the script not running and/or crashing 
-*/
-
 require('dotenv').config()
 
 import App from '../page-objects/App'
@@ -34,7 +27,7 @@ describe('Instagram Bot to Like and Follow other Profiles', () => {
   })
 
   it('Interaction with other Users', () => {
-    InstagramFollower.testLoop()
+    InstagramFollower.interactionLoop()
   })
 })
 

@@ -14,6 +14,10 @@ class Base {
   back() {
     browser.back()
   }
+
+  refresh() {
+    browser.refresh()
+  }
 }
 
 export default new Base()
