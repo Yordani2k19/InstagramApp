@@ -55,12 +55,8 @@ class InstagramPhoto {
     this.likePhotos()
   }
 
-  getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min
-  }
-
   likePhotos() {
-    for (let i = 0; i < this.getRndInteger(143, 242); i++) {
+    for (let i = 0; i < Base.getRndInteger(143, 237); i++) {
       const randomRes = Math.round(Math.random())
       if (!!randomRes) {
         Base.interval()

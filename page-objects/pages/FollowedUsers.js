@@ -7,8 +7,9 @@ class FollowedUsers {
       `body > div.RnEpo.Yx5HN > div > div > div.isgrP > ul > div > li:nth-child(${childPosition}) > div > div.Igw0E.rBNOH.YBx95.ybXk5._4EzTm.soMvl > button`
     )
     const unfollowUserConfirmation = $(
-      'body > div:nth-child(18) > div > div > div > div.mt3GC > button.aOOlW.-Cab_'
+      '/html/body/div[6]/div/div/div/div[3]/button[1]'
     )
+
     try {
       Base.interval()
       unfollowButton.waitForExist()

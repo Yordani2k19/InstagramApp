@@ -17,7 +17,7 @@ class InstagramFollower {
     } catch {
       Search.profileUrl(this.counter)
       this.counter = this.counter + 1
-      this.testLoop()
+      this.interactionLoop()
     }
   }
 

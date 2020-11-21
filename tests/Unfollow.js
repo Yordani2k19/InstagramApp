@@ -9,7 +9,7 @@ import FollowedUsers from '../page-objects/pages/FollowedUsers'
 describe('Unfollow Users', () => {
   it('Login to Instagram', () => {
     App.openHomePage()
-    InstagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW)
+    InstagramLogin.loginToInstagram('your username', 'your password')
   })
 
   it('Open own Profile', () => {

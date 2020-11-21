@@ -13,10 +13,16 @@ import InstagramLogin from '../page-objects/pages/InstagramLoginPage'
 import SearchResults from '../page-objects/pages/SearchResultsPage'
 import InstagramPhoto from '../page-objects/pages/InstagramPhoto'
 
+/*
+  As of recently, Instagram is hiding most posts from the hashtags feature
+  to help prevent the spread of false information in this year's presidential election.
+  This is temporary and the bot will be working correctly once Instagram enables this again.
+*/
+
 describe('Instagram Bot to like posts', () => {
   it('Login to Instagram', () => {
     App.openHomePage()
-    InstagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD)
+    InstagramLogin.loginToInstagram('your username', 'your password')
   })
 
   it('Search Tags', () => {
