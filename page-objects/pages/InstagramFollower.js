@@ -2,6 +2,37 @@ import Base from '../Base'
 import Search from '../Search'
 import InstagramProfile from '../pages/InstagramProfile'
 
+import fs from 'fs'
+const FILE = 'page-objects/data/userData.txt'
+
+export const readFile = (file, defaultTo = []) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(file, { encoding: 'utf-8' }, function(err, _file) {
+      console.log('_file', typeof _file)
+      if (err) {
+        reject(err)
+      } else {
+        resolve(_file && _file.length ? JSON.parse(_file) : defaultTo)
+      }
+    })
+  })
+
+const writeToFile = (file, dataToAdd) =>
+  new Promise((resolve, reject) => {
+    fs.writeFile(file, JSON.stringify(dataToAdd), function(err) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve()
+      }
+    })
+  })
+
+const addUserToFollowedList = async url => {
+  const users = await readFile(FILE)
+  const newUsers = [...users, { profileUrl: url }]
+  await writeToFile(FILE, newUsers)
+}
 class InstagramFollower {
   constructor() {
     this.counter = 1
@@ -78,6 +109,7 @@ class InstagramFollower {
   clickFollow() {
     this.followButton.waitForExist()
     this.followButton.click()
+    addUserToFollowedList(browser.getUrl())       
   }
 
   clickLike() {

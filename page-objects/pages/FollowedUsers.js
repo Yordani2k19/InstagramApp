@@ -1,50 +1,61 @@
 import Base from '../Base'
-import InstagramProfile from '../pages/InstagramProfile'
+import { readFile } from '../pages/InstagramFollower'
+
+import fs from 'fs'
+const FILE = 'page-objects/data/userData.txt'
 
 class FollowedUsers {
-  unfollowUsers(childPosition) {
-    const unfollowButton = $(
-      `body > div.RnEpo.Yx5HN > div > div > div.isgrP > ul > div > li:nth-child(${childPosition}) > div > div.Igw0E.rBNOH.YBx95.ybXk5._4EzTm.soMvl > button`
+  unfollowUser() {
+    return $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
     )
-    const unfollowUserConfirmation = $(
-      '/html/body/div[6]/div/div/div/div[3]/button[1]'
+  }
+
+  unfollowUserConfirmation() {
+    return $(
+      'body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_'
     )
-
-    try {
-      Base.interval()
-      unfollowButton.waitForExist()
-      unfollowButton.click()
-      Base.interval()
-      unfollowUserConfirmation.waitForExist()
-      unfollowUserConfirmation.click()
-    } catch {
-      Base.refresh()
-      Base.interval()
-      InstagramProfile.openFollowingList()
-      this.unfollowUsersLoop()
-    }
   }
 
-  get followingTitle() {
-    return $('.m82CD')
-  }
+  async unfollowUsersLoop() {
+    const users = await readFile(FILE)
+    const usersToBeDeleted = 'page-objects/data/userData.txt'
 
-  moveToFollowingTitle() {
-    this.followingTitle.waitForExist()
-    this.followingTitle.moveTo()
-  }
+    const clearFile = (file) =>
+      new Promise((resolve, reject) => {    
+        fs.truncate(file, 0, function(err){
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+          console.log('Done')
+        })        
+    })
 
-  unfollowUsersLoop() {
-    for (let i = 0; i < 50; i++) {
-      if (this.followingTitle.isExisting()) {
-        this.moveToFollowingTitle()
-        this.unfollowUsers(i + 1)
-      } else {
-        InstagramProfile.openFollowingList()
-        this.moveToFollowingTitle()
-        this.unfollowUsers(i + 1)
+    for (let i = 0; i < users.length; i++) {
+      try {
+        await browser.url(users[i].profileUrl)    
+
+        await Base.interval()
+        
+        const unfollowEl = await this.unfollowUser()
+        await unfollowEl.waitForExist()
+        await unfollowEl.click()
+
+        await Base.interval()
+
+        const unffollowConfEl = await this.unfollowUserConfirmation()
+        await unffollowConfEl.waitForExist()
+        await unffollowConfEl.click()
+
+        await Base.interval() 
+
+      } catch (error) {
+        console.log("Unfollow Error: ", error)
       }
     }
+    await clearFile(usersToBeDeleted)
   }
 }
 

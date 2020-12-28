@@ -19,6 +19,7 @@ exports.config = {
   // specs: ['./tests/LikeBot.js'],
   specs: ['./tests/UserInteraction.js'],
   // specs: ['./tests/Unfollow.js'],
+  // specs: ['./tests/Logout.js'],
   /*
     !@!@!@!@!@!@#@@!@!@!@!@!@!@@@!@@!@
     Above are the tests you would like to run, only run one at a time to avoid getting detected.

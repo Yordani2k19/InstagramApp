@@ -1,6 +1,6 @@
 {
   "name": "instagram-app",
-  "version": "167.0.0.24.120",
+  "version": "1.0.0",
   "description": "An Automation project with the purpose of interacting with the application.",
   "main": "index.js",
   "scripts": {

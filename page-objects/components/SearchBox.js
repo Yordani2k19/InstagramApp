@@ -11,11 +11,6 @@ class SearchBox {
     )
   }
 
-  /*
-  Test Account selector for hashtag()
-  #react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > div:nth-child(5) > div.drKGC > div > a:nth-child(1)
-  */
-
   get user() {
     return $('.Ap253')
   }

@@ -23,12 +23,16 @@ class InstagramLogin {
 
   loginToInstagram(username, password) {
     this.loginForm.waitForExist()
+
     this.userInput.waitForExist()
     this.userInput.setValue(username)
+
     this.passwordInput.waitForExist()
     this.passwordInput.setValue(password)
+
     this.loginButton.waitForExist()
     this.loginButton.click()
+    
     this.searchBox.waitForExist()
   }
 }
