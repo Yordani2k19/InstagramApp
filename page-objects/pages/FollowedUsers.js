@@ -1,8 +1,7 @@
-import Base from '../Base'
 import { readFile } from '../pages/InstagramFollower'
+import { LIST_OF_USER_FILES } from './InstagramFollower'
 
 import fs from 'fs'
-const FILE = 'page-objects/data/userData.txt'
 
 class FollowedUsers {
   unfollowUser() {
@@ -18,8 +17,8 @@ class FollowedUsers {
   }
 
   async unfollowUsersLoop() {
-    const users = await readFile(FILE)
-    const usersToBeDeleted = 'page-objects/data/userData.txt'
+    const usersList = await readFile(LIST_OF_USER_FILES)
+    const interval = await Math.floor(Math.random() * 4 + 1)
 
     const clearFile = (file) =>
       new Promise((resolve, reject) => {    
@@ -28,34 +27,36 @@ class FollowedUsers {
             reject(err)
           } else {
             resolve()
-          }
+          }                  
           console.log('Done')
         })        
     })
 
-    for (let i = 0; i < users.length; i++) {
+    for (let i = 0; i < usersList.length; i++) {
       try {
-        await browser.url(users[i].profileUrl)    
-
-        await Base.interval()
+        await browser.url(usersList[i].profileUrl)
         
-        const unfollowEl = await this.unfollowUser()
-        await unfollowEl.waitForExist()
-        await unfollowEl.click()
+        await browser.pause(interval * 1000)
+        
+        const unfollowUsersElement = await this.unfollowUser()
+        await unfollowUsersElement.waitForExist()
+        await unfollowUsersElement.click()
 
-        await Base.interval()
+        await browser.pause(interval * 1000)
 
-        const unffollowConfEl = await this.unfollowUserConfirmation()
-        await unffollowConfEl.waitForExist()
-        await unffollowConfEl.click()
+        const unfollowUsersElementConfirmation = await this.unfollowUserConfirmation()
+        await unfollowUsersElementConfirmation.waitForExist()
+        await unfollowUsersElementConfirmation.click()
 
-        await Base.interval() 
+        await browser.pause(interval * 1000)
+
+        await deleteUrl(i)
 
       } catch (error) {
         console.log("Unfollow Error: ", error)
       }
     }
-    await clearFile(usersToBeDeleted)
+    await clearFile(LIST_OF_USER_FILES)
   }
 }
 

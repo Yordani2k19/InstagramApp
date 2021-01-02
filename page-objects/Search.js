@@ -9,14 +9,9 @@ class Search {
       'https://www.instagram.com/charlysavely/',
       'https://www.instagram.com/joshsavely/'
     ]
+
     browser.url(PROFILES[counter])
   }
-
-  /* 
-    above is an example of how the URls are used.
-    it is better if you place profiles with a high
-    amount of followers for better results.
-*/
 
   tagUrl(counter) {
     const TAGS = [
@@ -26,14 +21,9 @@ class Search {
       'https://www.instagram.com/explore/tags/miamimodel/',
       'https://www.instagram.com/explore/tags/miamimodels/'
     ]
+    
     browser.url(TAGS[counter])
   }
 }
-
-/*
-    follow the same example as above, but instead
-    copy and paste a tag url, keep in mind that if you paste the links
-    where they shouldn't go the bot will not work at all
-*/
 
 export default new Search()

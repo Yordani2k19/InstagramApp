@@ -2,8 +2,10 @@ import Base from '../Base'
 import Search from '../Search'
 import InstagramProfile from '../pages/InstagramProfile'
 
+import { nanoid } from 'nanoid'
+
 import fs from 'fs'
-const FILE = 'page-objects/data/userData.txt'
+export const LIST_OF_USER_FILES = 'page-objects/data/userData.txt'
 
 export const readFile = (file, defaultTo = []) =>
   new Promise((resolve, reject) => {
@@ -29,9 +31,9 @@ const writeToFile = (file, dataToAdd) =>
   })
 
 const addUserToFollowedList = async url => {
-  const users = await readFile(FILE)
-  const newUsers = [...users, { profileUrl: url }]
-  await writeToFile(FILE, newUsers)
+  const users = await readFile(LIST_OF_USER_FILES)
+  const newUsers = [...users, { profileUrl: url, profileID: nanoid() }]
+  await writeToFile(LIST_OF_USER_FILES, newUsers)
 }
 class InstagramFollower {
   constructor() {
@@ -69,6 +71,12 @@ class InstagramFollower {
   get followButton() {
     return $(
       '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > div > span > span.vBF20._1OSdk > button'
+    )
+  }
+  
+  get followBackButton() {
+    return $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > button'
     )
   }
 
@@ -123,20 +131,29 @@ class InstagramFollower {
   }
 
   interact() {
-    if (this.userIsBeingFollowed.isExisting()) {
+    if (this.userIsBeingFollowed.isExisting() || this.followBackButton.isExisting()) {
       Base.back()
+
     } else {
-      if (this.posts.isExisting()) {
+      if (this.posts.isExisting()) {        
         this.clickFollow()
+
         Base.interval()
+
         this.clickPhoto()
+
         Base.interval()
+
         this.clickLike()
+
         Base.interval()
+
         this.closePhoto()
+
         Base.back()
         Base.interval()
         Base.back()
+
       } else {
         Base.back()
       }
@@ -147,16 +164,38 @@ class InstagramFollower {
     for (let i = 0; i < 50; i++) {
       if (this.followerTitle.isExisting()) {
         this.moveToFollowerTitle()
+
         Base.interval()
-        this.clickFollower(i + 1)
+        
+        try {
+          this.clickFollower(i + 1)
+
+        } catch (error) {
+          Base.refresh()
+          console.log('Clicked on follower error: ', error)
+        }      
+
         Base.interval()
+
         this.interact()
+
       } else {
         InstagramProfile.openFollowerList()
+
         this.moveToFollowerTitle()
+
         Base.interval()
-        this.clickFollower(i + 1)
+
+        try {
+          this.clickFollower(i + 1)
+          
+        } catch (error) {
+          Base.refresh()
+          console.log(error)
+        }      
+
         Base.interval()
+
         this.interact()
       }
     }
