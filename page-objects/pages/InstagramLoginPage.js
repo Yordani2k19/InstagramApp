@@ -1,4 +1,4 @@
-class InstagramLogin {
+export class InstagramLogin {
   get loginForm() {
     return $('#loginForm')
   }
@@ -32,9 +32,7 @@ class InstagramLogin {
 
     this.loginButton.waitForExist()
     this.loginButton.click()
-    
+
     this.searchBox.waitForExist()
   }
 }
-
-export default new InstagramLogin()

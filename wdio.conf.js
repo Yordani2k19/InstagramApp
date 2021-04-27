@@ -16,15 +16,10 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  // specs: ['./tests/LikeBot.js'],
-  specs: ['./tests/UserInteraction.js'],
+  specs: ['./tests/LikeBot.js'],
+  // specs: ['./tests/UserInteraction.js'],
   // specs: ['./tests/Unfollow.js'],
-  // specs: ['./tests/Logout.js'],
-  /*
-    !@!@!@!@!@!@#@@!@!@!@!@!@!@@@!@@!@
-    Above are the tests you would like to run, only run one at a time to avoid getting detected.
-    To run another test, just type the file name like shown above
-  */
+  //
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -56,15 +51,15 @@ exports.config = {
       // maxInstances can get overwritten per capability. So if you have an in-house Selenium
       // grid with only 5 firefox instances available you can make sure that not more than
       // 5 instances get started at a time.
-      maxInstances: 5,
+      maxInstances: 1,
       //
       browserName: 'chrome',
-      acceptInsecureCerts: true
+      acceptInsecureCerts: true,
       // If outputDir is provided WebdriverIO can capture driver session logs
       // it is possible to configure which logTypes to include/exclude.
       // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
       // excludeDriverLogs: ['bugreport', 'server'],
-    }
+    },
   ],
   //
   // ===================
@@ -142,9 +137,9 @@ exports.config = {
     // Babel setup
     require: ['@babel/register'],
     ui: 'bdd',
-    timeout: 600000000000000
+    timeout: 600000000000000,
     // 60000
-  }
+  },
   //
   // =====
   // Hooks

@@ -1,4 +1,4 @@
-class SearchPage {
+export class SearchPage {
   openProfileDropdown() {
     const profile = $(
       '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.ctQZg > div > div:nth-child(5) > span > img'
@@ -23,5 +23,3 @@ class SearchPage {
     logoutButton.click()
   }
 }
-
-export default new SearchPage()

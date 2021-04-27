@@ -1,4 +1,4 @@
-class SearchResults {
+export class SearchResults {
   get topPostsPhoto() {
     return $(
       '#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(1) > a > div'
@@ -10,5 +10,3 @@ class SearchResults {
     this.topPostsPhoto.click()
   }
 }
-
-export default new SearchResults()

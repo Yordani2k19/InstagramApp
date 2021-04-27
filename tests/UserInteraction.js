@@ -1,26 +1,35 @@
 require('dotenv').config()
 
-import App from '../page-objects/App'
-import Search from '../page-objects/Search'
-import InstagramLogin from '../page-objects/pages/InstagramLoginPage'
-import InstagramProfile from '../page-objects/pages/InstagramProfile'
-import InstagramFollower from '../page-objects/pages/InstagramFollower'
+import { App, Search } from '../page-objects'
+
+import {
+  InstagramLogin,
+  InstagramProfile,
+  InstagramFollower,
+} from '../page-objects/pages'
+
+const app = new App()
+const search = new Search()
+
+const instagramLogin = new InstagramLogin()
+const instagramProfile = new InstagramProfile()
+const instagramFollower = new InstagramFollower()
 
 describe('Instagram Bot to Like and Follow other Profiles', () => {
   it('Login to Instagram', () => {
-    App.openHomePage()
-    InstagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW)
+    app.openHomePage()
+    instagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD)
   })
 
   it('Search for a Profile using the URL', () => {
-    Search.profileUrl(0)
+    search.profileUrl(0)
   })
 
   it('Open the Follower List of that profile', () => {
-    InstagramProfile.openFollowerList()
+    instagramProfile.openFollowerList()
   })
 
   it('Interaction with other Users', () => {
-    InstagramFollower.interactionLoop()
+    instagramFollower.interactionLoop()
   })
 })

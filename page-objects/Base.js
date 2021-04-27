@@ -1,4 +1,4 @@
-class Base {
+export class Base {
   pauseShort() {
     browser.pause(2000)
   }
@@ -7,8 +7,11 @@ class Base {
   }
 
   interval() {
-    const interval = Math.floor(Math.random() * 4 + 1)
-    browser.pause(interval * 1000)
+    return new Promise(async (resolve) => {
+      const interval = Math.floor(Math.random() * 4 + 1) * 1000
+      browser.pause(interval)
+      setTimeout(resolve, interval)
+    })
   }
 
   back() {
@@ -23,5 +26,3 @@ class Base {
     return Math.floor(Math.random() * (max - min)) + min
   }
 }
-
-export default new Base()

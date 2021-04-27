@@ -1,8 +1,11 @@
-import Base from '../Base'
-import Search from '../Search'
-import SearchResults from '../pages/SearchResultsPage'
+import { Base, Search } from '../index'
+import { SearchResults } from '../pages/SearchResultsPage'
 
-class InstagramPhoto {
+const base = new Base()
+const search = new Search()
+const searchResults = new SearchResults()
+
+export class InstagramPhoto {
   constructor() {
     this.counter = 1
   }
@@ -38,7 +41,7 @@ class InstagramPhoto {
   }
 
   clickNext() {
-    Base.interval()
+    base.interval()
     this.nextPhoto.waitForExist()
     this.nextPhoto.click()
   }
@@ -48,24 +51,28 @@ class InstagramPhoto {
   }
 
   switchTags() {
-    Search.tagUrl(this.counter)
+    search.tagUrl(this.counter)
     this.counter = this.counter + 1
-    Base.interval()
-    SearchResults.clickOnAPhoto()
+    base.interval()
+    searchResults.clickOnAPhoto()
     this.likePhotos()
   }
 
   likePhotos() {
-    for (let i = 0; i < Base.getRndInteger(143, 237); i++) {
+    for (let i = 0; i < base.getRndInteger(140, 250); i++) {
       const randomRes = Math.round(Math.random())
       if (!!randomRes) {
-        Base.interval()
-        this.likeAndContinue()
-        this.checkForUserExistance()
+        for (let i = 0; i < base.getRndInteger(1, 8); i++) {
+          base.interval()
+          this.likeAndContinue()
+        }
+      } else {
+        for (let i = 0; i < base.getRndInteger(1, 3); i++) {
+          base.interval()
+          this.clickNext()
+        }
       }
     }
     this.switchTags()
   }
 }
-
-export default new InstagramPhoto()

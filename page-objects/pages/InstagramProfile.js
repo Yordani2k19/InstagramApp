@@ -1,4 +1,4 @@
-class InstagramProfile {
+export class InstagramProfile {
   get followerList() {
     return $(
       '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a'
@@ -21,5 +21,3 @@ class InstagramProfile {
     this.followedList.click()
   }
 }
-
-export default new InstagramProfile()

@@ -1,15 +1,23 @@
-import Base from '../Base'
-import Search from '../Search'
-import InstagramProfile from '../pages/InstagramProfile'
-
 import { nanoid } from 'nanoid'
 
-import fs from 'fs'
-export const LIST_OF_USER_FILES = 'page-objects/data/userData.txt'
+import { Base, Search } from '../index'
+import { InstagramProfile } from '../pages/InstagramProfile'
+
+const base = new Base()
+const search = new Search()
+const instagramProfile = new InstagramProfile()
+
+const fs = require('fs')
+const path = require('path')
+
+export const LIST_OF_USER_FILES = path.join(
+  __dirname,
+  '../../data/userData.txt'
+)
 
 export const readFile = (file, defaultTo = []) =>
   new Promise((resolve, reject) => {
-    fs.readFile(file, { encoding: 'utf-8' }, function(err, _file) {
+    fs.readFile(file, { encoding: 'utf-8' }, function (err, _file) {
       console.log('_file', typeof _file)
       if (err) {
         reject(err)
@@ -21,7 +29,7 @@ export const readFile = (file, defaultTo = []) =>
 
 const writeToFile = (file, dataToAdd) =>
   new Promise((resolve, reject) => {
-    fs.writeFile(file, JSON.stringify(dataToAdd), function(err) {
+    fs.writeFile(file, JSON.stringify(dataToAdd), function (err) {
       if (err) {
         reject(err)
       } else {
@@ -30,12 +38,16 @@ const writeToFile = (file, dataToAdd) =>
     })
   })
 
-const addUserToFollowedList = async url => {
-  const users = await readFile(LIST_OF_USER_FILES)
-  const newUsers = [...users, { profileUrl: url, profileID: nanoid() }]
-  await writeToFile(LIST_OF_USER_FILES, newUsers)
+const addUserToFollowedList = async (url) => {
+  try {
+    const users = await readFile(LIST_OF_USER_FILES)
+    const newUsers = [...users, { profileUrl: url, profileID: nanoid() }]
+    await writeToFile(LIST_OF_USER_FILES, newUsers)
+  } catch (error) {
+    console.log('nemo', error)
+  }
 }
-class InstagramFollower {
+export class InstagramFollower {
   constructor() {
     this.counter = 1
   }
@@ -48,7 +60,7 @@ class InstagramFollower {
       child.waitForExist()
       child.click()
     } catch {
-      Search.profileUrl(this.counter)
+      search.profileUrl(this.counter)
       this.counter = this.counter + 1
       this.interactionLoop()
     }
@@ -73,7 +85,7 @@ class InstagramFollower {
       '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > div > span > span.vBF20._1OSdk > button'
     )
   }
-  
+
   get followBackButton() {
     return $(
       '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > button'
@@ -117,7 +129,7 @@ class InstagramFollower {
   clickFollow() {
     this.followButton.waitForExist()
     this.followButton.click()
-    addUserToFollowedList(browser.getUrl())       
+    addUserToFollowedList(browser.getUrl())
   }
 
   clickLike() {
@@ -131,31 +143,32 @@ class InstagramFollower {
   }
 
   interact() {
-    if (this.userIsBeingFollowed.isExisting() || this.followBackButton.isExisting()) {
-      Base.back()
-
+    if (
+      this.userIsBeingFollowed.isExisting() ||
+      this.followBackButton.isExisting()
+    ) {
+      base.back()
     } else {
-      if (this.posts.isExisting()) {        
+      if (this.posts.isExisting()) {
         this.clickFollow()
 
-        Base.interval()
+        base.interval()
 
         this.clickPhoto()
 
-        Base.interval()
+        base.interval()
 
         this.clickLike()
 
-        Base.interval()
+        base.interval()
 
         this.closePhoto()
 
-        Base.back()
-        Base.interval()
-        Base.back()
-
+        base.back()
+        base.interval()
+        base.back()
       } else {
-        Base.back()
+        base.back()
       }
     }
   }
@@ -165,41 +178,36 @@ class InstagramFollower {
       if (this.followerTitle.isExisting()) {
         this.moveToFollowerTitle()
 
-        Base.interval()
-        
+        base.interval()
+
         try {
           this.clickFollower(i + 1)
-
         } catch (error) {
-          Base.refresh()
+          base.refresh()
           console.log('Clicked on follower error: ', error)
-        }      
+        }
 
-        Base.interval()
+        base.interval()
 
         this.interact()
-
       } else {
-        InstagramProfile.openFollowerList()
+        instagramProfile.openFollowerList()
 
         this.moveToFollowerTitle()
 
-        Base.interval()
+        base.interval()
 
         try {
           this.clickFollower(i + 1)
-          
         } catch (error) {
-          Base.refresh()
-          console.log(error)
-        }      
+          base.refresh()
+          console.log('interactionLoop error: ', error)
+        }
 
-        Base.interval()
+        base.interval()
 
         this.interact()
       }
     }
   }
 }
-
-export default new InstagramFollower()
