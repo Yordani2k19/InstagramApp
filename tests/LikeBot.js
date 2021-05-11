@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 import { App, Search } from '../page-objects'
-
 import {
   InstagramLogin,
   SearchResults,
@@ -10,7 +9,6 @@ import {
 
 const app = new App()
 const search = new Search()
-
 const instagramLogin = new InstagramLogin()
 const searchResult = new SearchResults()
 const instagramPhoto = new InstagramPhoto()
@@ -18,7 +16,7 @@ const instagramPhoto = new InstagramPhoto()
 describe('Instagram Bot to like posts', () => {
   it('Login to Instagram', () => {
     app.openHomePage()
-    instagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD)
+    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW)
   })
 
   it('Search Tags', () => {

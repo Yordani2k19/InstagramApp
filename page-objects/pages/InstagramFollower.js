@@ -1,42 +1,18 @@
 import { nanoid } from 'nanoid'
-
+import { readFile, writeToFile } from '../../fs'
 import { Base, Search } from '../index'
 import { InstagramProfile } from '../pages/InstagramProfile'
+
+const path = require('path')
 
 const base = new Base()
 const search = new Search()
 const instagramProfile = new InstagramProfile()
 
-const fs = require('fs')
-const path = require('path')
-
 export const LIST_OF_USER_FILES = path.join(
   __dirname,
   '../../data/userData.txt'
 )
-
-export const readFile = (file, defaultTo = []) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(file, { encoding: 'utf-8' }, function (err, _file) {
-      console.log('_file', typeof _file)
-      if (err) {
-        reject(err)
-      } else {
-        resolve(_file && _file.length ? JSON.parse(_file) : defaultTo)
-      }
-    })
-  })
-
-const writeToFile = (file, dataToAdd) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(file, JSON.stringify(dataToAdd), function (err) {
-      if (err) {
-        reject(err)
-      } else {
-        resolve()
-      }
-    })
-  })
 
 const addUserToFollowedList = async (url) => {
   try {

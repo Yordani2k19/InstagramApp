@@ -1,11 +1,8 @@
 import { Base } from '../Base'
-
-import { readFile } from '../pages/InstagramFollower'
+import { readFile, clearFile } from '../../fs'
 import { LIST_OF_USER_FILES } from './InstagramFollower'
 
 const base = new Base()
-
-const fs = require('fs')
 
 export class FollowedUsers {
   unfollowUser() {
@@ -22,18 +19,6 @@ export class FollowedUsers {
 
   async unfollowUsersLoop() {
     const usersList = await readFile(LIST_OF_USER_FILES)
-
-    const clearFile = (file) =>
-      new Promise((resolve, reject) => {
-        fs.truncate(file, 0, function (err) {
-          if (err) {
-            reject(err)
-          } else {
-            resolve()
-          }
-          console.log('Done')
-        })
-      })
 
     for (let i = 0; i < usersList.length; i++) {
       try {
