@@ -10,44 +10,34 @@ export class InstagramPhoto {
     this.counter = 1
   }
 
-  get user() {
-    return $('body > div._2dDPU.CkGkG > div.zZYga > div > article')
-  }
-
-  get likeHeart() {
-    return $(
-      'body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > div > span > svg'
-    )
-  }
-
-  get unlikeHeart() {
-    return $('svg[aria-label="Unlike"]')
-  }
-
-  get nextPhoto() {
-    return $(
-      'body > div._2dDPU.CkGkG > div.EfHg9 > div > div > a._65Bje.coreSpriteRightPaginationArrow'
-    )
-  }
-
   checkForUserExistance() {
-    this.user.isExisting() ? this.clickLike() : this.clickNext()
+    const user = $('body > div._2dDPU.CkGkG > div.zZYga > div > article')
+    user.isExisting() ? this.clickLike() : this.clickNext()
   }
 
   clickLike() {
-    this.likeHeart.waitForExist()
-    this.likeHeart.click()
+    const likeHeart = $(
+      'body > div._2dDPU.CkGkG > div.zZYga > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > div > span > svg'
+    )
+    likeHeart.waitForExist()
+    likeHeart.click()
+
     this.clickNext()
   }
 
   clickNext() {
     base.interval()
-    this.nextPhoto.waitForExist()
-    this.nextPhoto.click()
+
+    const nextPhoto = $(
+      'body > div._2dDPU.CkGkG > div.EfHg9 > div > div > a._65Bje.coreSpriteRightPaginationArrow'
+    )
+    nextPhoto.waitForExist()
+    nextPhoto.click()
   }
 
   likeAndContinue() {
-    this.unlikeHeart.isExisting() ? this.clickNext() : this.clickLike()
+    const unlikeHeart = $('svg[aria-label="Unlike"]')
+    unlikeHeart.isExisting() ? this.clickNext() : this.clickLike()
   }
 
   switchTags() {

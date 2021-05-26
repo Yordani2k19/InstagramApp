@@ -1,23 +1,17 @@
 export class InstagramProfile {
-  get followerList() {
-    return $(
+  openFollowerList() {
+    const followerList = $(
       '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a'
     )
-  }
-
-  get followedList() {
-    return $(
-      '#react-root > section > main > div > header > section > ul > li:nth-child(3) > a'
-    )
-  }
-
-  openFollowerList() {
-    this.followerList.waitForExist()
-    this.followerList.click()
+    followerList.waitForExist()
+    followerList.click()
   }
 
   openFollowingList() {
-    this.followedList.waitForExist()
-    this.followedList.click()
+    const followedList = $(
+      '#react-root > section > main > div > header > section > ul > li:nth-child(3) > a'
+    )
+    followedList.waitForExist()
+    followedList.click()
   }
 }

@@ -1,12 +1,9 @@
 export class SearchResults {
-  get topPostsPhoto() {
-    return $(
+  clickOnAPhoto() {
+    const topPostsPhoto = $(
       '#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(1) > a > div'
     )
-  }
-
-  clickOnAPhoto() {
-    this.topPostsPhoto.waitForExist()
-    this.topPostsPhoto.click()
+    topPostsPhoto.waitForExist()
+    topPostsPhoto.click()
   }
 }

@@ -1,38 +1,34 @@
 export class InstagramLogin {
-  get loginForm() {
-    return $('#loginForm')
-  }
+  loginToInstagram(username, password) {
+    const loginForm = $('#loginForm')
+    loginForm.waitForExist()
 
-  get userInput() {
-    return $('#loginForm > div > div:nth-child(1) > div > label > input')
-  }
+    const userInput = $(
+      '#loginForm > div > div:nth-child(1) > div > label > input'
+    )
+    userInput.waitForExist()
+    userInput.setValue(username)
 
-  get passwordInput() {
-    return $('#loginForm > div > div:nth-child(2) > div > label > input')
-  }
+    const passwordInput = $(
+      '#loginForm > div > div:nth-child(2) > div > label > input'
+    )
+    passwordInput.waitForExist()
+    passwordInput.setValue(password)
 
-  get loginButton() {
-    return $('#loginForm > div > div:nth-child(3) > button')
-  }
+    const loginButton = $('#loginForm > div > div:nth-child(3) > button')
+    loginButton.waitForExist()
+    loginButton.click()
 
-  get searchBox() {
-    return $(
+    const searchBox = $(
       '#react-root > section > nav > div._8MQSO.Cx7Bp > div > div > div.LWmhU._0aCwM > input'
     )
+    searchBox.waitForExist()
   }
 
-  loginToInstagram(username, password) {
-    this.loginForm.waitForExist()
-
-    this.userInput.waitForExist()
-    this.userInput.setValue(username)
-
-    this.passwordInput.waitForExist()
-    this.passwordInput.setValue(password)
-
-    this.loginButton.waitForExist()
-    this.loginButton.click()
-
-    this.searchBox.waitForExist()
+  instagramLogout() {
+    // create logout here to call at the end of every test
+    // must click on icon and confirm existance
+    // then follow through the log out
+    // and confirm existance
   }
 }

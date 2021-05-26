@@ -20,7 +20,7 @@ const addUserToFollowedList = async (url) => {
     const newUsers = [...users, { profileUrl: url, profileID: nanoid() }]
     await writeToFile(LIST_OF_USER_FILES, newUsers)
   } catch (error) {
-    console.log('nemo', error)
+    console.log('addUserToFollowedList() error: ', error)
   }
 }
 export class InstagramFollower {
@@ -42,54 +42,14 @@ export class InstagramFollower {
     }
   }
 
-  get followerTitle() {
-    return $('body > div.RnEpo.Yx5HN > div > div > div:nth-child(1) > div > h1')
-  }
-
-  get followerPhotos() {
-    return $('.v1Nh3 kIKUG  _bz0w')
-  }
-
   get posts() {
     return $(
       '#react-root > section > main > div > div._2z6nI > article > div > div > div:nth-child(1) > div:nth-child(1)'
     )
   }
 
-  get followButton() {
-    return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > div > span > span.vBF20._1OSdk > button'
-    )
-  }
-
-  get followBackButton() {
-    return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > button'
-    )
-  }
-
-  get userIsBeingFollowed() {
-    return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
-    )
-  }
-
-  get likePhotos() {
-    return $('svg[aria-label="Like"]')
-  }
-
-  get unlikedHeart() {
-    return $('svg[aria-label="Unlike"]')
-  }
-
-  get nextPhoto() {
-    return $('body > div._2dDPU.CkGkG > div.EfHg9 > div > div > a')
-  }
-
-  get closeWindow() {
-    return $(
-      'body > div._2dDPU.CkGkG > div.Igw0E.IwRSH.eGOV_._4EzTm.BI4qX.qJPeX.fm1AK.TxciK.yiMZG > button > div > svg'
-    )
+  get followerTitle() {
+    return $('body > div.RnEpo.Yx5HN > div > div > div:nth-child(1) > div > h1')
   }
 
   moveToFollowerTitle() {
@@ -103,26 +63,37 @@ export class InstagramFollower {
   }
 
   clickFollow() {
-    this.followButton.waitForExist()
-    this.followButton.click()
+    const followButton = $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > div > span > span.vBF20._1OSdk > button'
+    )
+    followButton.waitForExist()
+    followButton.click()
     addUserToFollowedList(browser.getUrl())
   }
 
   clickLike() {
-    this.likePhotos.waitForExist()
-    this.likePhotos.click()
+    const likePhotos = $('svg[aria-label="Like"]')
+    likePhotos.waitForExist()
+    likePhotos.click()
   }
 
   closePhoto() {
-    this.closeWindow.waitForExist()
-    this.closeWindow.click()
+    const closeWindow = $(
+      'body > div._2dDPU.CkGkG > div.Igw0E.IwRSH.eGOV_._4EzTm.BI4qX.qJPeX.fm1AK.TxciK.yiMZG > button > div > svg'
+    )
+    closeWindow.waitForExist()
+    closeWindow.click()
   }
 
   interact() {
-    if (
-      this.userIsBeingFollowed.isExisting() ||
-      this.followBackButton.isExisting()
-    ) {
+    const userIsBeingFollowed = $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
+    )
+    const followBackButton = $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div > button'
+    )
+
+    if (userIsBeingFollowed.isExisting() || followBackButton.isExisting()) {
       base.back()
     } else {
       if (this.posts.isExisting()) {
@@ -150,7 +121,7 @@ export class InstagramFollower {
   }
 
   interactionLoop() {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < base.getRndInteger(40, 50); i++) {
       if (this.followerTitle.isExisting()) {
         this.moveToFollowerTitle()
 

@@ -5,20 +5,15 @@ import { LIST_OF_USER_FILES } from './InstagramFollower'
 const base = new Base()
 
 export class FollowedUsers {
-  unfollowUser() {
-    return $(
-      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
-    )
-  }
-
-  unfollowUserConfirmation() {
-    return $(
-      'body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_'
-    )
-  }
-
   async unfollowUsersLoop() {
     const usersList = await readFile(LIST_OF_USER_FILES)
+
+    const unfollowUser = $(
+      '#react-root > section > main > div > header > section > div.nZSzR > div.Igw0E.IwRSH.eGOV_.ybXk5._4EzTm > div > div:nth-child(2) > div > span > span.vBF20._1OSdk > button > div > span'
+    )
+    const unfollowUserConfirmation = $(
+      'body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_'
+    )
 
     for (let i = 0; i < usersList.length; i++) {
       try {
@@ -27,13 +22,13 @@ export class FollowedUsers {
         await base.interval()
 
         try {
-          const unfollowUsersElement = await this.unfollowUser()
+          const unfollowUsersElement = await unfollowUser
           await unfollowUsersElement.waitForExist()
           await unfollowUsersElement.click()
 
           await base.interval()
 
-          const unfollowUsersElementConfirmation = await this.unfollowUserConfirmation()
+          const unfollowUsersElementConfirmation = await unfollowUserConfirmation
           await unfollowUsersElementConfirmation.waitForExist()
           await unfollowUsersElementConfirmation.click()
         } catch (error) {
