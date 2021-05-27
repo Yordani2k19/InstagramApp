@@ -16,7 +16,7 @@ const instagramPhoto = new InstagramPhoto();
 describe("Instagram Bot to like posts", () => {
   it("Login to Instagram", () => {
     app.openHomePage();
-    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW);
+    instagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD);
   });
 
   it("Search Tags", () => {

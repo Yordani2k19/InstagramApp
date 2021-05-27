@@ -16,7 +16,7 @@ const instagramFollower = new InstagramFollower();
 describe("Instagram Bot to Like and Follow other Profiles", () => {
   it("Login to Instagram", () => {
     app.openHomePage();
-    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW);
+    instagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD);
   });
 
   it("Search for a Profile using the URL", () => {

@@ -10,7 +10,7 @@ const followedUsers = new FollowedUsers();
 describe("Unfollow Users", () => {
   it("Login to Instagram", () => {
     app.openHomePage();
-    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW);
+    instagramLogin.loginToInstagram(process.env.USERNAME, process.env.PASSWORD);
   });
 
   it("Unfollow Users", async () => {
