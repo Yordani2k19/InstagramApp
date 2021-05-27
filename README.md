@@ -16,9 +16,7 @@ In a terminal run yarn install to install the packages needed for the script.
 
 In wdio.conf.js you will find
 
-  specs: ["./tests/LikeBot.js"],
-  // specs: ["./tests/UserInteraction.js"],
-  // specs: ["./tests/Unfollow.js"],
+specs: ["./tests/LikeBot.js"]
 
 By default its the LikeBot.js which runs.
   
