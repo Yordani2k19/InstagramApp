@@ -1,30 +1,34 @@
-require('dotenv').config()
+require("dotenv").config();
 
-import { App, Search } from '../page-objects'
+import { App, Search } from "../page-objects";
 import {
   InstagramLogin,
   SearchResults,
   InstagramPhoto,
-} from '../page-objects/pages'
+} from "../page-objects/pages";
 
-const app = new App()
-const search = new Search()
-const instagramLogin = new InstagramLogin()
-const searchResult = new SearchResults()
-const instagramPhoto = new InstagramPhoto()
+const app = new App();
+const search = new Search();
+const instagramLogin = new InstagramLogin();
+const searchResult = new SearchResults();
+const instagramPhoto = new InstagramPhoto();
 
-describe('Instagram Bot to like posts', () => {
-  it('Login to Instagram', () => {
-    app.openHomePage()
-    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW)
-  })
+describe("Instagram Bot to like posts", () => {
+  it("Login to Instagram", () => {
+    app.openHomePage();
+    instagramLogin.loginToInstagram(process.env.TEST_USER, process.env.TEST_PW);
+  });
 
-  it('Search Tags', () => {
-    search.tagUrl(0)
-  })
+  it("Search Tags", () => {
+    search.tagUrl(0);
+  });
 
-  it('Like Posts', () => {
-    searchResult.clickOnAPhoto()
-    instagramPhoto.likePhotos()
-  })
-})
+  it("Like Posts", () => {
+    searchResult.clickOnAPhoto();
+    instagramPhoto.likePhotos();
+  });
+
+  it("Log out from App", () => {
+    instagramLogin.instagramLogout();
+  });
+});
