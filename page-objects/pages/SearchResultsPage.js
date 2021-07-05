@@ -1,9 +1,9 @@
 export class SearchResults {
   clickOnAPhoto() {
-    const topPostsPhoto = $(
-      '#react-root > section > main > article > div.EZdmt > div > div > div:nth-child(1) > div:nth-child(1) > a > div'
-    )
-    topPostsPhoto.waitForExist()
-    topPostsPhoto.click()
+    const photo = $(
+      "#react-root > section > main > div > div.K6yM_ > div > div:nth-child(1) > div:nth-child(2) > div > a > div > div._9AhH0"
+    );
+    photo.waitForExist();
+    photo.click();
   }
 }
